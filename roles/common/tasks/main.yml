@@ -1,0 +1,4 @@
+---
+# tasks file for common
+- name: install commons
+  raw: apt -y install python-simplejson

@@ -1,0 +1,40 @@
+---
+# tasks file for vim
+
+- name: add apt repository for vim-8
+  apt_repository:
+    repo: 'ppa:jonathonf/vim'
+  tags:
+    - vim
+
+- name: install vim
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vim
+  tags:
+    - vim
+
+- name: vimrc
+  copy: src=vimrc dest="/etc/vim/vimrc"
+  tags:
+    - vim
+    - vimrc
+ 
+- name: vundle
+  git: 
+    repo: https://github.com/gmarik/Vundle.vim.git 
+    dest: "{{ home_dir }}/.vim/bundle/Vundle.vim"
+  become_user: mato-home
+  tags:
+    - vim
+    - vimrc
+
+- name: install vundle plugins
+  shell: vim +PluginInstall +qall
+  become_user: mato-home
+  tags:
+    - vim
+    - vimrc
+
