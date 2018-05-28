@@ -1,1 +1,2 @@
-home_dir: /home/mato-home
+home_dir: /home/mato
+become_user: mato
